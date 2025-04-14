@@ -1,0 +1,9 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 7, "column": 0}, "map": {"version":3,"sources":["file:///Users/timurabutalipov/MAIN_MY/Work/Code/Portfolio/Castens/src/app/page.tsx"],"sourcesContent":["\"use client\";\n\nimport { useState } from \"react\";\n\nexport default function Home() {\n  const [login, setLogin] = useState<boolean>(false);\n  const handleSetLogin = () => {\n    setLogin(!login);\n  };\n  return (\n    <div className=\"\">\n      <h1>{login ? \"Вход\" : \"Регистрация\"}</h1>\n    </div>\n  );\n}\n"],"names":[],"mappings":";;;;AAEA;AAFA;;;AAIe,SAAS;IACtB,MAAM,CAAC,OAAO,SAAS,GAAG,CAAA,GAAA,qMAAA,CAAA,WAAQ,AAAD,EAAW;IAC5C,MAAM,iBAAiB;QACrB,SAAS,CAAC;IACZ;IACA,qBACE,8OAAC;QAAI,WAAU;kBACb,cAAA,8OAAC;sBAAI,QAAQ,SAAS;;;;;;;;;;;AAG5B","debugId":null}},
+    {"offset": {"line": 35, "column": 0}, "map": {"version":3,"sources":[],"names":[],"mappings":"A"}},
+    {"offset": {"line": 40, "column": 0}, "map": {"version":3,"sources":["file:///Users/timurabutalipov/MAIN_MY/Work/Code/Portfolio/Castens/node_modules/next/src/server/route-modules/app-page/vendored/ssr/react-jsx-dev-runtime.ts"],"sourcesContent":["module.exports = require('../../module.compiled').vendored[\n  'react-ssr'\n].ReactJsxDevRuntime\n"],"names":["module","exports","require","vendored","ReactJsxDevRuntime"],"mappings":";AAAAA,OAAOC,OAAO,GAAGC,QAAQ,4HAAyBC,QAAQ,CACxD,YACD,CAACC,kBAAkB","ignoreList":[0],"debugId":null}},
+    {"offset": {"line": 42, "column": 0}, "map": {"version":3,"sources":[],"names":[],"mappings":"A"}}]
+}

@@ -1,0 +1,35 @@
+/* [project]/src/components/ui/Input/Input.module.scss.module.css [app-client] (css) */
+.Input-module-scss-module__u7FmTq__inputView {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  row-gap: 8px;
+  align-items: flex-start;
+}
+
+.Input-module-scss-module__u7FmTq__inputView label {
+  width: 100%;
+  text-align: left;
+  color: #000;
+  font-size: 15px;
+  margin-left: 15px;
+}
+
+.Input-module-scss-module__u7FmTq__inputView input {
+  width: 100%;
+  background: #fff;
+  outline: none;
+  border: 1px solid #000;
+  height: 44px;
+  padding: 16px;
+  font-size: 16px;
+  font-weight: 400;
+  border-radius: 44px;
+}
+
+.Input-module-scss-module__u7FmTq__inputView input::placeholder {
+  color: #00000060;
+}
+
+
+/*# sourceMappingURL=src_components_ui_Input_Input_module_scss_module_b2be5814.css.map*/

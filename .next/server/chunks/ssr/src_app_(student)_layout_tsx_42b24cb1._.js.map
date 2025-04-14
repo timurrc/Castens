@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 7, "column": 0}, "map": {"version":3,"sources":["file:///Users/timurabutalipov/MAIN_MY/Work/Code/Portfolio/Castens/src/app/%28student%29/layout.tsx"],"sourcesContent":["import { Theme } from \"@radix-ui/themes\";\n\nexport default function RootLayout({\n  children,\n}: Readonly<{\n  children: React.ReactNode;\n}>) {\n  return <Theme>{children}</Theme>;\n}\n"],"names":[],"mappings":";;;;AAAA;;;AAEe,SAAS,WAAW,EACjC,QAAQ,EAGR;IACA,qBAAO,8OAAC,6KAAA,CAAA,QAAK;kBAAE;;;;;;AACjB","debugId":null}},
+    {"offset": {"line": 23, "column": 0}, "map": {"version":3,"sources":[],"names":[],"mappings":"A"}}]
+}
