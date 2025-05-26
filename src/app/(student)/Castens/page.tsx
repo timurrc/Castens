@@ -1,14 +1,38 @@
 "use client";
 
 import { Navbar } from "@/components/modules/Navbar";
-
 import { Select } from "@geist-ui/core";
-
 import { useEffect, useState } from "react";
 
 type FormData = {
   quantity: number | null;
   type: string;
+};
+
+// Define valid values for sex and medicalGroup
+type Sex = "man" | "woman";
+type MedicalGroup = "main" | "spec" | "preparatory";
+
+type Condition = {
+  min?: number;
+  max?: number;
+  eq?: number;
+  mark: number;
+};
+
+type Rules = {
+  man: {
+    ForwardBend: Condition[];
+    main: Record<string, Condition[]>;
+    spec: Record<string, Condition[]>;
+    preparatory: Record<string, Condition[]>;
+  };
+  woman: {
+    ForwardBend: Condition[];
+    main: Record<string, Condition[]>;
+    spec: Record<string, Condition[]>;
+    preparatory: Record<string, Condition[]>;
+  };
 };
 
 const TEST_OPTIONS = [
@@ -24,15 +48,15 @@ const TEST_OPTIONS = [
 ];
 
 const getMark = (
-  sex: string,
-  medicalGroup: string,
+  sex: Sex | null,
+  medicalGroup: MedicalGroup | null,
   type: string,
-  quantity: string,
+  quantity: number | null,
   weight: number | string
-) => {
+): number | null => {
   weight = parseFloat(String(weight || "0"));
 
-  const rules = {
+  const rules: Rules = {
     man: {
       ForwardBend: [
         { min: 13, mark: 5 },
@@ -219,9 +243,18 @@ const getMark = (
     },
   };
 
-  const conditionSets =
-    rules[sex]?.[type] || rules[sex]?.[medicalGroup]?.[type];
+  if (!sex || !medicalGroup || !quantity) return null;
+
+  // Explicitly check for ForwardBend case vs. medicalGroup cases
+  let conditionSets: Condition[] | undefined;
+  if (type === "ForwardBend") {
+    conditionSets = rules[sex].ForwardBend;
+  } else {
+    conditionSets = rules[sex][medicalGroup]?.[type];
+  }
+
   if (!conditionSets) return null;
+
   for (const cond of conditionSets) {
     if (cond.eq !== undefined && quantity === cond.eq) return cond.mark;
     if (cond.min !== undefined && quantity >= cond.min) return cond.mark;
@@ -235,13 +268,16 @@ export default function Page() {
     quantity: null,
     type: "",
   });
-  const [sex, setSex] = useState<string | null>(null);
-  const [medicalGroup, setMedicalGroup] = useState<string | null>(null);
+
+  const [sex, setSex] = useState<Sex | null>(null);
+  const [medicalGroup, setMedicalGroup] = useState<MedicalGroup | null>(null);
   const [weight, setWeight] = useState<string | null>(null);
 
   useEffect(() => {
-    setSex(localStorage.getItem("sex"));
-    setMedicalGroup(localStorage.getItem("medicalGroup"));
+    setSex(localStorage.getItem("sex") as Sex | null);
+    setMedicalGroup(
+      localStorage.getItem("medicalGroup") as MedicalGroup | null
+    );
     setWeight(localStorage.getItem("weight"));
   }, []);
 
@@ -292,7 +328,7 @@ export default function Page() {
               onChange={(e) =>
                 setFormData((prev) => ({
                   ...prev,
-                  quantity: Number(e.target.value),
+                  quantity: e.target.value ? Number(e.target.value) : null,
                 }))
               }
               className="px-4 py-1 rounded-lg border border-[#f0f0f0] outline-none"
