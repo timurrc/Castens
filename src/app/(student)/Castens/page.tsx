@@ -30,7 +30,8 @@ const getMark = (
   quantity: string,
   weight: number | string
 ) => {
-  weight = parseFloat(weight || "0");
+  weight = parseFloat(String(weight || "0"));
+
   const rules = {
     man: {
       ForwardBend: [
