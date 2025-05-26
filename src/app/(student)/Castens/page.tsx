@@ -6,6 +6,11 @@ import { Select } from "@geist-ui/core";
 
 import { useEffect, useState } from "react";
 
+type FormData = {
+  quantity: number | null;
+  type: string;
+};
+
 const TEST_OPTIONS = [
   { value: "Pull-ups", label: "Подтягивание из виса на высокой перекладине" },
   { value: "HangingPull-ups", label: "Подтягивание в висе лежа" },
@@ -18,7 +23,13 @@ const TEST_OPTIONS = [
   },
 ];
 
-const getMark = (sex, medicalGroup, type, quantity, weight) => {
+const getMark = (
+  sex: string,
+  medicalGroup: string,
+  type: string,
+  quantity: string,
+  weight: number | string
+) => {
   weight = parseFloat(weight || "0");
   const rules = {
     man: {
@@ -219,7 +230,10 @@ const getMark = (sex, medicalGroup, type, quantity, weight) => {
 };
 
 export default function Page() {
-  const [formData, setFormData] = useState({ quantity: null, type: "" });
+  const [formData, setFormData] = useState<FormData>({
+    quantity: null,
+    type: "",
+  });
   const [sex, setSex] = useState<string | null>(null);
   const [medicalGroup, setMedicalGroup] = useState<string | null>(null);
   const [weight, setWeight] = useState<string | null>(null);
@@ -230,7 +244,7 @@ export default function Page() {
     setWeight(localStorage.getItem("weight"));
   }, []);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const mark = getMark(
       sex,
@@ -258,10 +272,10 @@ export default function Page() {
             <Select
               placeholder="Выберите тест"
               value={formData.type}
-              width={"full"}
+              width="full"
               type="default"
               onChange={(value) =>
-                setFormData((prev) => ({ ...prev, type: value }))
+                setFormData((prev) => ({ ...prev, type: value as string }))
               }
             >
               {TEST_OPTIONS.map(({ value, label }) => (
@@ -273,7 +287,7 @@ export default function Page() {
             <label>Введите количество:</label>
             <input
               type="number"
-              value={formData.quantity}
+              value={formData.quantity ?? ""}
               onChange={(e) =>
                 setFormData((prev) => ({
                   ...prev,
