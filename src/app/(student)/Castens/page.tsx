@@ -315,6 +315,8 @@ export default function Page() {
               onChange={(value) =>
                 setFormData((prev) => ({ ...prev, type: value as string }))
               }
+              onPointerEnterCapture={undefined}
+              onPointerLeaveCapture={undefined}
             >
               {TEST_OPTIONS.map(({ value, label }) => (
                 <Select.Option key={value} value={value}>
