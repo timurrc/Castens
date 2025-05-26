@@ -57,8 +57,8 @@ export default function Page() {
             <Select.Content>
               <Select.Group>
                 <Select.Item value="main">Основная</Select.Item>
-                <Select.Item value="spec">Спец.</Select.Item>
                 <Select.Item value="preparatory">Подготовительная</Select.Item>
+                <Select.Item value="spec">Спец.</Select.Item>
               </Select.Group>
             </Select.Content>
           </Select.Root>

@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@geist-ui/core": "^2.3.8",
     "@radix-ui/themes": "^3.2.1",
     "next": "15.2.1",
     "react": "^19.0.0",

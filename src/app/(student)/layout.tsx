@@ -5,5 +5,9 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return <Theme>{children}</Theme>;
+  return (
+    <div className="flex flex-col px-[16px]">
+      <Theme>{children}</Theme>
+    </div>
+  );
 }
