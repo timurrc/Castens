@@ -52,7 +52,7 @@ const getMark = (
   medicalGroup: MedicalGroup | null,
   type: string,
   quantity: number | null,
-  weight: number | string
+  weight: number | string | null
 ): number | null => {
   weight = parseFloat(String(weight || "0"));
 
@@ -306,6 +306,7 @@ export default function Page() {
         <div className="flex flex-col gap-4 w-full items-start">
           <form className="flex flex-col gap-2 w-full" onSubmit={handleSubmit}>
             <label>Выберите контрольный тест:</label>
+
             <Select
               placeholder="Выберите тест"
               value={formData.type}

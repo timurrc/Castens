@@ -144,7 +144,7 @@ const TEST_OPTIONS = [
     }
 ];
 const getMark = (sex, medicalGroup, type, quantity, weight)=>{
-    weight = parseFloat(weight || "0");
+    weight = parseFloat(String(weight || "0"));
     const rules = {
         man: {
             ForwardBend: [
@@ -646,7 +646,14 @@ const getMark = (sex, medicalGroup, type, quantity, weight)=>{
             }
         }
     };
-    const conditionSets = rules[sex]?.[type] || rules[sex]?.[medicalGroup]?.[type];
+    if (!sex || !medicalGroup || !quantity) return null;
+    // Explicitly check for ForwardBend case vs. medicalGroup cases
+    let conditionSets;
+    if (type === "ForwardBend") {
+        conditionSets = rules[sex].ForwardBend;
+    } else {
+        conditionSets = rules[sex][medicalGroup]?.[type];
+    }
     if (!conditionSets) return null;
     for (const cond of conditionSets){
         if (cond.eq !== undefined && quantity === cond.eq) return cond.mark;
@@ -684,12 +691,12 @@ function Page() {
                 type: "Additional"
             }, void 0, false, {
                 fileName: "[project]/src/app/(student)/Castens/page.tsx",
-                lineNumber: 252,
+                lineNumber: 303,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("br", {}, void 0, false, {
                 fileName: "[project]/src/app/(student)/Castens/page.tsx",
-                lineNumber: 253,
+                lineNumber: 304,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -704,7 +711,7 @@ function Page() {
                                 children: "Выберите контрольный тест:"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/(student)/Castens/page.tsx",
-                                lineNumber: 257,
+                                lineNumber: 308,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$geist$2d$ui$2f$core$2f$esm$2f$select$2f$index$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Select$3e$__["Select"], {
@@ -721,32 +728,32 @@ function Page() {
                                         children: label
                                     }, value, false, {
                                         fileName: "[project]/src/app/(student)/Castens/page.tsx",
-                                        lineNumber: 268,
+                                        lineNumber: 319,
                                         columnNumber: 17
                                     }, this))
                             }, void 0, false, {
                                 fileName: "[project]/src/app/(student)/Castens/page.tsx",
-                                lineNumber: 258,
+                                lineNumber: 309,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
                                 children: "Введите количество:"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/(student)/Castens/page.tsx",
-                                lineNumber: 273,
+                                lineNumber: 324,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
                                 type: "number",
-                                value: formData.quantity,
+                                value: formData.quantity ?? "",
                                 onChange: (e)=>setFormData((prev)=>({
                                             ...prev,
-                                            quantity: Number(e.target.value)
+                                            quantity: e.target.value ? Number(e.target.value) : null
                                         })),
                                 className: "px-4 py-1 rounded-lg border border-[#f0f0f0] outline-none"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/(student)/Castens/page.tsx",
-                                lineNumber: 274,
+                                lineNumber: 325,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -755,23 +762,23 @@ function Page() {
                                 children: "Отправить"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/(student)/Castens/page.tsx",
-                                lineNumber: 285,
+                                lineNumber: 336,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/(student)/Castens/page.tsx",
-                        lineNumber: 256,
+                        lineNumber: 307,
                         columnNumber: 11
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/src/app/(student)/Castens/page.tsx",
-                    lineNumber: 255,
+                    lineNumber: 306,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/app/(student)/Castens/page.tsx",
-                lineNumber: 254,
+                lineNumber: 305,
                 columnNumber: 7
             }, this)
         ]
