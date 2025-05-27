@@ -42,6 +42,7 @@ export default function Page() {
           value={formData.group}
           onChange={(e) => handleChange("group", e.target.value)}
           label="Группа"
+          className="rounded-xl"
         />
 
         <div className="flex flex-col gap-2 w-full">
@@ -51,9 +52,9 @@ export default function Page() {
           <Select.Root
             value={formData.medicalGroup}
             onValueChange={(value) => handleChange("medicalGroup", value)}
-            size="3"
+            size="2"
           >
-            <Select.Trigger radius="full" id="medicalGroup" />
+            <Select.Trigger id="medicalGroup" radius="medium" />
             <Select.Content>
               <Select.Group>
                 <Select.Item value="main">Основная</Select.Item>
@@ -71,9 +72,9 @@ export default function Page() {
           <Select.Root
             value={formData.sex}
             onValueChange={(value) => handleChange("sex", value)}
-            size="3"
+            size="2"
           >
-            <Select.Trigger radius="full" id="sex" />
+            <Select.Trigger radius="medium" id="sex" />
             <Select.Content>
               <Select.Group>
                 <Select.Item value="man">Мужской</Select.Item>

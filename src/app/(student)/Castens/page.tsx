@@ -2,6 +2,7 @@
 
 import { Navbar } from "@/components/modules/Navbar";
 import { Select } from "@geist-ui/core";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 type FormData = {
@@ -9,7 +10,6 @@ type FormData = {
   type: string;
 };
 
-// Define valid values for sex and medicalGroup
 type Sex = "man" | "woman";
 type MedicalGroup = "main" | "spec" | "preparatory";
 
@@ -245,7 +245,6 @@ const getMark = (
 
   if (!sex || !medicalGroup || !quantity) return null;
 
-  // Explicitly check for ForwardBend case vs. medicalGroup cases
   let conditionSets: Condition[] | undefined;
   if (type === "ForwardBend") {
     conditionSets = rules[sex].ForwardBend;
@@ -272,7 +271,7 @@ export default function Page() {
   const [sex, setSex] = useState<Sex | null>(null);
   const [medicalGroup, setMedicalGroup] = useState<MedicalGroup | null>(null);
   const [weight, setWeight] = useState<string | null>(null);
-
+  const router = useRouter();
   useEffect(() => {
     setSex(localStorage.getItem("sex") as Sex | null);
     setMedicalGroup(
@@ -293,6 +292,7 @@ export default function Page() {
     if (mark !== null) {
       localStorage.setItem(`Mark_${formData.type}`, mark.toString());
       alert(`Оценка: ${mark}`);
+      router.push("/PK");
     } else {
       alert("Не удалось определить оценку. Проверьте введённые данные.");
     }
@@ -310,7 +310,7 @@ export default function Page() {
             <Select
               placeholder="Выберите тест"
               value={formData.type}
-              width="full"
+              className="geist-select"
               type="default"
               onChange={(value) =>
                 setFormData((prev) => ({ ...prev, type: value as string }))

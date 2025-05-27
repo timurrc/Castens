@@ -52,7 +52,7 @@ export default function Home() {
         />
         <Input
           name={"formData.password"}
-          type={"text"}
+          type={"password"}
           placeholder={"Пароль"}
           value={formData.password}
           onChange={(e) =>

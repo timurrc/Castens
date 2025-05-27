@@ -8,6 +8,7 @@ import { CircleProgressBar } from "@/components/layouts/CirclePorgressBar";
 export default function Page() {
   const [user, setUser] = useState<string | null>(null);
   const [grades, setGrades] = useState<{ [key: string]: string | null }>({});
+  const hasAnyGrades = Object.values(grades).some((val) => val !== null);
 
   useEffect(() => {
     const newGrades = {
@@ -89,18 +90,25 @@ export default function Page() {
           <p>Средний рейтинг</p>
         </div>
         <div className="flex flex-col gap-3">
-          <Text weight={"medium"}>Результаты:</Text>
-          <div className="flex flex-col gap-2">
-            {renderResultBlock(
-              "Подтягивания из виса лежа на высокой перекладине",
-              grades.pullUps
-            )}
-            {renderResultBlock("Подтягивания в висе", grades.hangingPullUps)}
-            {renderResultBlock("Отжимания", grades.pushUps)}
-            {renderResultBlock("Пресс", grades.abs)}
-            {renderResultBlock("Прыжок в длину с места", grades.longJump)}
-            {renderResultBlock("Наклон вперед", grades.forwardBend)}
-          </div>
+          <Text size={"5"} weight={"medium"} className="text-lg font-bold">
+            Результаты:
+          </Text>
+
+          {hasAnyGrades ? (
+            <div className="flex flex-col gap-2">
+              {renderResultBlock(
+                "Подтягивания из виса лежа на высокой перекладине",
+                grades.pullUps
+              )}
+              {renderResultBlock("Подтягивания в висе", grades.hangingPullUps)}
+              {renderResultBlock("Отжимания", grades.pushUps)}
+              {renderResultBlock("Пресс", grades.abs)}
+              {renderResultBlock("Прыжок в длину с места", grades.longJump)}
+              {renderResultBlock("Наклон вперед", grades.forwardBend)}
+            </div>
+          ) : (
+            <p className="text-md">Пока нет результатов</p>
+          )}
         </div>
       </div>
     </>
